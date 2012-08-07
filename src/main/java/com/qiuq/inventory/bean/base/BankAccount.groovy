@@ -48,7 +48,7 @@ class BankAccount implements Serializable {
      * <li>0(或者為null): 表示不是默認賬號
      */
     @Column(name="Flag")
-    int isDefault;
+    int defaultAccount;
 
     // 以下的字段沒有使用
     // @Column(name="BZ", length=150)

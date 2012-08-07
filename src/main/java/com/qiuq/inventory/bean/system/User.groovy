@@ -58,7 +58,7 @@ class User implements Serializable {
      * <li>1: 表示可以登錄
      * <li>0(或者為null): 表示不能登錄
      */
-    int canLogin;
+    int loginable;
 
     /**
      * 用戶所在的權限組ID --> UserGroup
