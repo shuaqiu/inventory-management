@@ -135,10 +135,6 @@ class Employer implements Serializable{
     int disabled;
 
     // 以下的字段沒有使用
-<<<<<<< HEAD
-=======
-    //
->>>>>>> 629e22ea64b66d1fb29ef11f7fd253050089a4f1
     //    @Column(name="BirthDayFlag")
     //    int birthDayFlag;
     //
