@@ -47,6 +47,8 @@ class BaseInfoDictionary implements Serializable {
      * <li>學歷
      * <li>崗位
      * <li>職位
+     * <li>顏色
+     * <li>尺碼
      */
     @Column(name="LB", length=50)
     String type;
