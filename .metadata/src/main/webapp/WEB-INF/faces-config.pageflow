@@ -1,2 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pageflow:Pageflow xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13415035511100" configfile="/inventory-management/src/main/webapp/WEB-INF/faces-config.xml"/>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf13415035511100" configfile="/inventory-management/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" x="324" y="72" id="pf13464848750030" referenceLink="//@navigationRule.0/@navigationCase.1/@toViewId|" outlinks="pf13464848750031 pf13465032459110" inlinks="pf13465032459110" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="index.xhtml" x="156" y="120" id="pf13464848750032" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf13464848750031" path="/index.xhtml"/>
+  <links id="pf13464848750031" target="pf13464848750032" source="pf13464848750030" outcome="index"/>
+  <links id="pf13465032459110" target="pf13464848750030" source="pf13464848750030" outcome="login"/>
+</pageflow:Pageflow>

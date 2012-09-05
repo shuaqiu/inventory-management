@@ -10,17 +10,26 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.NamedQueries
+import javax.persistence.NamedQuery
 import javax.persistence.Table
+import javax.persistence.Transient
+
+import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.userdetails.UserDetails
 
 
 /**
  * 用戶信息
  * The persistent class for the YHXX database table.
- * 
+ *
  */
 @Entity
 @Table(name="YHXX")
-class User implements Serializable {
+@NamedQueries([
+    @NamedQuery(name="loadUsersByUsername", query="select usr from User usr where usr.username = :username")
+])
+class User implements UserDetails, Serializable {
     static final long serialVersionUID = 1L;
 
     @Id
@@ -32,7 +41,7 @@ class User implements Serializable {
      * 用戶名
      */
     @Column(name="UserName", length=50)
-    String name;
+    String username;
 
     /**
      * 用戶密碼
@@ -58,6 +67,7 @@ class User implements Serializable {
      * <li>1: 表示可以登錄
      * <li>0(或者為null): 表示不能登錄
      */
+    @Column(name="canLogin")
     int loginable;
 
     /**
@@ -71,6 +81,60 @@ class User implements Serializable {
      */
     @Column(name="iDate")
     Timestamp createDate;
+
+    /**
+     * 用戶的權限列表
+     */
+    @Transient
+    Collection<? extends GrantedAuthority> authorities = Collections.emptyList();
+
+    /** @author qiushaohua 2012-09-02 */
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    /** @author qiushaohua 2012-09-02 */
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    /** @author qiushaohua 2012-09-02 */
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    /** @author qiushaohua 2012-09-02 */
+    @Override
+    public boolean isEnabled() {
+        return loginable;
+    }
+
+
+    /**
+     * Returns {@code true} if the supplied object is a {@code User} instance with the
+     * same {@code username} value.
+     * <p>
+     * In other words, the objects are equal if they have the same username, representing the
+     * same principal.
+     */
+    @Override
+    boolean equals(Object rhs) {
+        if (rhs instanceof User) {
+            return username == ((User) rhs).username;
+        }
+        return false;
+    }
+
+    /**
+     * Returns the hashcode of the {@code username}.
+     */
+    @Override
+    int hashCode() {
+        return username.hashCode();
+    }
 
     // 以下的字段沒有使用
     // @Column(name="LoginIP", length=30)

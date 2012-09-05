@@ -1,0 +1,55 @@
+@blue: #08C;
+.barner {
+    max-width: 100%;
+    background-color: @blue;
+    div {
+        background-color: @blue;
+    }
+}
+
+.westUnit {
+    > div {
+        overflow-x: hidden ! important;
+    }
+}
+
+.menus {
+    width: 210px;
+    h3 {
+        font-size: 15px;
+        line-height: 20px;
+    }
+}
+
+.nav {
+    > li {
+        > a {
+            > [class ^= "icon-"] , > [class *= " icon-"] {
+                cursor: pointer;
+                margin-left: 5px;
+            }
+
+            > [class ^= "icon-"]:hover , > [class *= " icon-"]:hover {
+                background-color: #000;
+                background-image: url("../bootstrap/img/glyphicons-halflings-white.png");
+            }
+        }
+    }
+
+    > .active {
+        > a {
+            > [class ^= "icon-"] , > [class *= " icon-"] {
+                cursor: pointer;
+                margin-left: 5px;
+                background-image: url("../bootstrap/img/glyphicons-halflings.png");
+            }
+        }
+    }
+}
+
+.content-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+

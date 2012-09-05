@@ -33,7 +33,7 @@ public class GuestPreferences {
             }
         }
         if (theme == null) {
-            theme = "aristo";
+            theme = "bootstrap";
         }
 
         return theme;

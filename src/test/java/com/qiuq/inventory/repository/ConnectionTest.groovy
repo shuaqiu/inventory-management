@@ -4,7 +4,6 @@
 package com.qiuq.inventory.repository
 
 import org.junit.Assert
-import org.junit.Test
 import org.springframework.context.support.ClassPathXmlApplicationContext
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
 
@@ -14,9 +13,9 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate
  */
 class ConnectionTest {
 
-    @Test
+    //    @Test
     void testConn(){
-        def context =  new ClassPathXmlApplicationContext("applicationContext.xml");
+        def context =  new ClassPathXmlApplicationContext("testContext.xml");
         NamedParameterJdbcTemplate jdbcTemplate = context.getBean("jdbcTemplate");
 
         int cnt = jdbcTemplate.queryForInt("select count(*) from yhxx", [:]);
