@@ -3,7 +3,7 @@
   xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 
 <h:head>
-  <title>Prime Faces Test</title>
+  <title>#{unitInfoBean.unitName}</title>
   <meta charset="utf-8" />
   <link href="static/bootstrap/css/bootstrap.css" rel="stylesheet"></link>
   <link href="static/less/index.less" type="text/css" rel="stylesheet/less"></link>
@@ -11,14 +11,14 @@
 
 <h:body>
   <p:layout fullPage="true">
-    <p:layoutUnit styleClass="barner" position="north" size="120" collapsible="true">
+    <p:layoutUnit position="north" styleClass="barnerUnit" size="120" collapsible="true">
     </p:layoutUnit>
 
-    <p:layoutUnit styleClass="westUnit" position="west" size="230" resizable="true" collapsible="true">
+    <p:layoutUnit position="west" styleClass="menuUnit" size="230" resizable="true" collapsible="true">
       <ui:include src="menu.xhtml" />
     </p:layoutUnit>
 
-    <p:layoutUnit position="center">
+    <p:layoutUnit position="center" styleClass="mainUnit">
       <ui:include src="content.xhtml" />
     </p:layoutUnit>
   </p:layout>

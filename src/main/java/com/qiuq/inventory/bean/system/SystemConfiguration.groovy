@@ -5,6 +5,8 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.NamedQueries
+import javax.persistence.NamedQuery
 import javax.persistence.Table
 
 /**
@@ -14,6 +16,9 @@ import javax.persistence.Table
  */
 @Entity
 @Table(name="SYSCS")
+@NamedQueries([
+    @NamedQuery(name="loadConfigByName", query="select conf from SystemConfiguration conf where conf.name = :name")
+])
 class SystemConfiguration implements Serializable {
     static final long serialVersionUID = 1L;
 

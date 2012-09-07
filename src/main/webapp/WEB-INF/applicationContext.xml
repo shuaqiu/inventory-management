@@ -94,7 +94,7 @@
         <sec:intercept-url pattern="/**" access="ROLE_USER" />
         <sec:form-login login-page="/login.jsf" default-target-url="/index.jsf"
             authentication-failure-url="/login.jsf" username-parameter="loginForm:j_username" password-parameter="loginForm:j_password" />
-        <sec:logout logout-url="/logout.jsf" delete-cookies="JSESSIONID" logout-success-url="/login.jsf" />
+        <sec:logout logout-url="/j_spring_security_logout" delete-cookies="JSESSIONID" logout-success-url="/login.jsf" />
     </sec:http>
 
     <!-- <sec:authentication-manager> -->

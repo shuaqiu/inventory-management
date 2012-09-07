@@ -7,18 +7,6 @@
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
-
-    <navigation-rule>
-        <from-view-id>/login.xhtml</from-view-id>
-        <navigation-case>
-            <from-outcome>index</from-outcome>
-            <to-view-id>/index.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>login</from-outcome>
-            <to-view-id>/login.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
     
     <lifecycle>
     	<phase-listener>com.qiuq.inventory.view.system.LoginErrorPhaseListener</phase-listener>

@@ -1,5 +1,5 @@
 @blue: #08C;
-.barner {
+.barnerUnit {
     max-width: 100%;
     background-color: @blue;
     div {
@@ -7,7 +7,7 @@
     }
 }
 
-.westUnit {
+.menuUnit {
     > div {
         overflow-x: hidden ! important;
     }
@@ -21,7 +21,14 @@
     }
 }
 
+.mainUnit {
+    .ui-layout-resizer {
+        display: none ! important;
+    }
+}
+
 .nav {
+    margin-bottom: 3px;
     > li {
         > a {
             > [class ^= "icon-"] , > [class *= " icon-"] {
@@ -44,6 +51,17 @@
                 background-image: url("../bootstrap/img/glyphicons-halflings.png");
             }
         }
+    }
+}
+
+.navUnit , .contentUnit {
+    border: none;
+    padding: 0;
+}
+
+.contentUnit {
+    > div {
+        overflow: hidden ! important;
     }
 }
 

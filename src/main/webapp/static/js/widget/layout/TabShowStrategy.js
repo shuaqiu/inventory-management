@@ -1,23 +1,7 @@
 define([ "../../jquery" ], function($) {
 	function TabShowStrategy($navTabs, strategy) {
 		this.$navTabs = $navTabs;
-		this.strategy = strategy || TabShowStrategy.STRATEGY_LAST;
-
-		if (this.strategy == TabShowStrategy.STRATEGY_RECENTLY) {
-			this.access = [];
-			var self = this;
-			var $body = $(document.body);
-			$body.on("shown", TabShowStrategy.TAB_SELECTOR, function() {
-				self.access.push(this.id);
-			});
-			$body.on("remove", TabShowStrategy.TAB_SELECTOR, function() {
-				for ( var i = self.access.length - 1; i >= 0; i--) {
-					if (self.access[i] == this.id) {
-						self.access.splice(i, 1);
-					}
-				}
-			});
-		}
+		this.setStrategy(strategy);
 	}
 
 	TabShowStrategy.STRATEGY_FIRST = 1;
@@ -27,6 +11,17 @@ define([ "../../jquery" ], function($) {
 	TabShowStrategy.TAB_SELECTOR = "[data-toggle='tab'], [data-toggle='pill']";
 
 	TabShowStrategy.prototype = {
+		setStrategy : function(strategy) {
+			this.strategy = strategy || TabShowStrategy.STRATEGY_RECENTLY;
+			if (this.strategy < TabShowStrategy.STRATEGY_FIRST
+					|| this.strategy > TabShowStrategy.STRATEGY_RECENTLY) {
+				this.strategy = TabShowStrategy.STRATEGY_RECENTLY;
+			}
+
+			if (this.strategy == TabShowStrategy.STRATEGY_RECENTLY) {
+				this.initRecentlyRecorder();
+			}
+		},
 
 		tabClosed : function($tab) {
 			if ($tab.closest("li").hasClass("active")) {
@@ -64,10 +59,26 @@ define([ "../../jquery" ], function($) {
 
 		getRecentlyAccessedTab : function($tab) {
 			var toShowTab = this.access.pop();
-			if(toShowTab){
+			if (toShowTab) {
 				return $("#" + toShowTab);
 			}
 			return $();
+		},
+
+		initRecentlyRecorder : function() {
+			this.access = [];
+			var self = this;
+			var $body = $(document.body);
+			$body.on("shown", TabShowStrategy.TAB_SELECTOR, function() {
+				self.access.push(this.id);
+			});
+			$body.on("remove", TabShowStrategy.TAB_SELECTOR, function() {
+				for ( var i = self.access.length - 1; i >= 0; i--) {
+					if (self.access[i] == this.id) {
+						self.access.splice(i, 1);
+					}
+				}
+			});
 		}
 	};
 

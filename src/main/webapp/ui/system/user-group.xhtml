@@ -1,0 +1,9 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+  <h:outputText value="权限组列表" />
+  <p:selectOneListbox value="#{userGroupBean.selectedGroupId}">
+    <f:selectItems value="#{userGroupBean.userGroups}" var="group" itemLabel="#{group.name}" itemValue="#{group.id}" />
+  </p:selectOneListbox>
+
+</ui:composition>
