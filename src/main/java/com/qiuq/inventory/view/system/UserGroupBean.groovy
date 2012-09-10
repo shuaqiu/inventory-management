@@ -27,8 +27,6 @@ class UserGroupBean {
 
     static List<UserGroup> userGroups;
 
-    int selectedGroupId;
-
     UserGroup userGroup = new UserGroup();
 
     @Autowired
@@ -36,8 +34,11 @@ class UserGroupBean {
 
     String save(ActionEvent event){
         log.info("want to save ${userGroup.id}-->${userGroup.name}");
+
+        // save or update to database
         UserGroup newUserGroup = userGroupRepo.save(userGroup);
 
+        // save or update to local list
         int index = userGroups.indexOf(newUserGroup);
         if(index == -1){
             userGroups.add(newUserGroup);
@@ -45,6 +46,17 @@ class UserGroupBean {
             UserGroup oldUserGroup = userGroups.get(index);
             oldUserGroup.name = newUserGroup.name;
         }
+        return null;
+    }
+
+    String delete(ActionEvent event){
+        log.info("want to delete ${userGroup.id}");
+
+        // remove from the database
+        userGroupRepo.delete(userGroup.id);
+        // remove from the local list
+        userGroups.remove(userGroup);
+
         return null;
     }
 

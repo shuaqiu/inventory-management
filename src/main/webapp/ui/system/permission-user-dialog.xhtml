@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+  <h:form>
+    <p:dialog widgetVar="userDialog" modal="true" resizable="false" dynamic="true" header="操作员"
+      styleClass="simple-dialog">
+      <div class="dialog-body form-horizontal">
+        <div class="control-group">
+          <h:outputLabel value="登录用户名(*)" for="username" styleClass="control-label" />
+          <div class="controls">
+            <p:inputText type="hidden" widgetVar="userId" value="#{userBean.user.id}" />
+            <p:inputText id="username" widgetVar="username" value="#{userBean.user.username}" required="true"
+              requiredMessage="请输入登录用户名" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="登录密码(*)" for="password" styleClass="control-label" />
+          <div class="controls">
+            <p:password id="password" widgetVar="password" value="#{userBean.user.password}" required="true"
+              requiredMessage="请输入登录密码" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="确认密码(*)" for="confirmPassword" styleClass="control-label" />
+          <div class="controls">
+            <p:password id="confirmPassword" widgetVar="confirmPassword" value="#{userBean.user.password}"
+              required="true" requiredMessage="请输入确认密码" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="所属权限组(*)" for="userGroupId" styleClass="control-label" />
+          <div class="controls">
+            <p:selectOneMenu id="userGroupId" widgetVar="userGroupId" value="#{userBean.user.userGroupId}"
+              required="true" requiredMessage="请选择所属权限组">
+              <f:selectItems value="#{userGroupBean.userGroups}" var="group" itemLabel="#{group.name}"
+                itemValue="#{group.id}" />
+            </p:selectOneMenu>
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="关联员工(*)" for="employerId" styleClass="control-label" />
+          <div class="controls">
+            <p:selectOneMenu id="employerId" widgetVar="employerId" value="#{userBean.user.employerId}" required="true"
+              requiredMessage="请选择关联员工" />
+          </div>
+        </div>
+        <div>
+          <p:messages autoUpdate="true" />
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <p:commandLink actionListener="#{userBean.save}" update=":layoutForm:users"
+          oncomplete="pagejs.permission.hideUserDialogWhenSaved(xhr, status, args);" styleClass="btn btn-primary">
+          <span class="icon-ok"></span>
+          <h:outputText value="确定" />
+        </p:commandLink>
+        <p:commandLink onclick="pagejs.permission.hideUserDialog();" styleClass="btn">
+          <span class="icon-remove"></span>
+          <h:outputText value="取消" />
+        </p:commandLink>
+      </div>
+    </p:dialog>
+  </h:form>
+
+  <h:form>
+    <p:dialog widgetVar="userDeletionConfirm" modal="true" resizable="false" dynamic="true" header="删除权限组"
+      styleClass="simple-dialog">
+      <div class="dialog-body form-horizontal">
+        <div class="control-group">
+          <span class="icon-question-sign"></span>
+          <h:outputText value="你确定要删除该权限组吗?" />
+          <p:inputText type="hidden" widgetVar="toDeleteUserId" value="#{userBean.user.id}" />
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <p:commandLink actionListener="#{userBean.delete}" update=":layoutForm:users"
+          oncomplete="userDeletionConfirm.hide();" styleClass="btn btn-primary">
+          <span class="icon-ok"></span>
+          <h:outputText value="确定" />
+        </p:commandLink>
+        <p:commandLink onclick="userDeletionConfirm.hide();" styleClass="btn">
+          <span class="icon-remove"></span>
+          <h:outputText value="取消" />
+        </p:commandLink>
+      </div>
+    </p:dialog>
+  </h:form>
+
+</ui:composition>

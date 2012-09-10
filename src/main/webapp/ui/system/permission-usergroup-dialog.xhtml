@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+  <h:form>
+    <p:dialog widgetVar="userGroupDialog" modal="true" resizable="false" dynamic="true" header="权限组"
+      styleClass="simple-dialog">
+      <div class="dialog-body form-horizontal">
+        <div class="control-group">
+          <h:outputLabel value="权限组名称(*)" for="userGroupName" styleClass="control-label" />
+          <div class="controls">
+            <p:inputText type="hidden" widgetVar="userGroupId" value="#{userGroupBean.userGroup.id}" />
+            <p:inputText id="userGroupName" widgetVar="userGroupName" value="#{userGroupBean.userGroup.name}"
+              required="true" requiredMessage="请输入权限组名称" />
+          </div>
+        </div>
+        <div>
+          <p:message id="userGroupNameMessage" for="userGroupName" />
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <p:commandLink actionListener="#{userGroupBean.save}" update=":layoutForm:userGroups,userGroupNameMessage"
+          oncomplete="pagejs.permission.hideUserGroupDialogWhenSaved(xhr, status, args);" styleClass="btn btn-primary">
+          <span class="icon-ok"></span>
+          <h:outputText value="确定" />
+        </p:commandLink>
+        <p:commandLink onclick="pagejs.permission.hideUserGroupDialog();" styleClass="btn">
+          <span class="icon-remove"></span>
+          <h:outputText value="取消" />
+        </p:commandLink>
+      </div>
+    </p:dialog>
+  </h:form>
+
+  <h:form>
+    <p:dialog widgetVar="userGroupDeletionConfirm" modal="true" resizable="false" dynamic="true" header="删除权限组"
+      styleClass="simple-dialog">
+      <div class="dialog-body form-horizontal">
+        <div class="control-group">
+          <span class="icon-question-sign"></span>
+          <h:outputText value="你确定要删除该权限组吗?" />
+          <p:inputText type="hidden" widgetVar="toDeleteUserGroupId" value="#{userGroupBean.userGroup.id}" />
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <p:commandLink actionListener="#{userGroupBean.delete}" update=":layoutForm:userGroups"
+          oncomplete="userGroupDeletionConfirm.hide();" styleClass="btn btn-primary">
+          <span class="icon-ok"></span>
+          <h:outputText value="确定" />
+        </p:commandLink>
+        <p:commandLink onclick="userGroupDeletionConfirm.hide();" styleClass="btn">
+          <span class="icon-remove"></span>
+          <h:outputText value="取消" />
+        </p:commandLink>
+      </div>
+    </p:dialog>
+  </h:form>
+
+</ui:composition>
