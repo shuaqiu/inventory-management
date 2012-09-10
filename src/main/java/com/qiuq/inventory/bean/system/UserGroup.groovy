@@ -2,12 +2,11 @@ package com.qiuq.inventory.bean.system
 
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
 import javax.persistence.NamedQueries
 import javax.persistence.NamedQuery
 import javax.persistence.Table
+
+import com.qiuq.inventory.bean.CommonBean
 
 /**
  * 用戶組(權限組)
@@ -17,15 +16,10 @@ import javax.persistence.Table
 @Entity
 @Table(name="QXZ")
 @NamedQueries([
-    @NamedQuery(name="loadUserGroup", query="select t from UserGroup t")
+    @NamedQuery(name="UserGroup.findAll", query="select t from UserGroup t")
 ])
-class UserGroup implements Serializable {
+class UserGroup extends CommonBean implements Serializable {
     static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(unique=true, nullable=false)
-    int id;
 
     /**
      * 名稱

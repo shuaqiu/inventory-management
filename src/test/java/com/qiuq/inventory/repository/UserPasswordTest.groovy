@@ -5,7 +5,6 @@ package com.qiuq.inventory.repository;
 
 import static org.junit.Assert.*
 
-import org.junit.Test
 import org.springframework.context.support.ClassPathXmlApplicationContext
 import org.springframework.security.authentication.encoding.PasswordEncoder
 
@@ -16,7 +15,6 @@ import org.springframework.security.authentication.encoding.PasswordEncoder
  */
 class UserPasswordTest {
 
-    @Test
     void testMd5(){
         def context =  new ClassPathXmlApplicationContext("testContext.xml");
         PasswordEncoder passwordEncoder = context.getBean("passwordEncoder");

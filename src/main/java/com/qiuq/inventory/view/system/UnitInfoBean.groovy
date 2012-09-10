@@ -4,14 +4,15 @@
 package com.qiuq.inventory.view.system
 
 import javax.annotation.PostConstruct
+import javax.faces.event.ActionEvent
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 
-import com.qiuq.inventory.bean.system.SystemConfiguration
-import com.qiuq.inventory.bean.system.SystemConfigurationItem
-import com.qiuq.inventory.service.system.SystemConfigurationService
+import com.qiuq.inventory.bean.system.SystemConfig
+import com.qiuq.inventory.bean.system.SystemConfigItem
+import com.qiuq.inventory.repository.system.SystemConfigRepo
 
 /**
  * @author qiushaohua 2012-9-7
@@ -25,16 +26,22 @@ class UnitInfoBean {
     String unitName;
 
     @Autowired
-    SystemConfigurationService systemConfigurationService;
+    SystemConfigRepo systemConfigRepo;
 
     @PostConstruct
     void init(){
-        SystemConfiguration unitNameConf = systemConfigurationService.loadConfig(SystemConfigurationItem.UNIT_NAME);
-        unitName = unitNameConf.getValue();
+        SystemConfig conf = getUnitNameConf();
+        unitName = conf.getValue();
     }
 
-    String updateUnitName(){
-        systemConfigurationService.updateValue(SystemConfigurationItem.UNIT_NAME, unitName);
+    String updateUnitName(ActionEvent event){
+        SystemConfig conf = getUnitNameConf();
+        conf.setValue(unitName);
+        systemConfigRepo.save(conf);
         return null;
+    }
+
+    private SystemConfig getUnitNameConf(){
+        return systemConfigRepo.findByName(SystemConfigItem.UNIT_NAME.key);
     }
 }

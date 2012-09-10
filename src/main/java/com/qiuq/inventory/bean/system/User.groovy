@@ -27,7 +27,7 @@ import org.springframework.security.core.userdetails.UserDetails
 @Entity
 @Table(name="YHXX")
 @NamedQueries([
-    @NamedQuery(name="loadUsersByUsername", query="select usr from User usr where usr.username = :username")
+    @NamedQuery(name="User.findAllByUsername", query="select t from User t where t.username = :username")
 ])
 class User implements UserDetails, Serializable {
     static final long serialVersionUID = 1L;
@@ -35,7 +35,7 @@ class User implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(unique=true, nullable=false)
-    int id;
+    Integer id;
 
     /**
      * 用戶名

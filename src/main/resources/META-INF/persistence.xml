@@ -17,7 +17,7 @@
 
         <class>com.qiuq.inventory.bean.system.Department</class>
         <class>com.qiuq.inventory.bean.system.Employer</class>
-        <class>com.qiuq.inventory.bean.system.SystemConfiguration</class>
+        <class>com.qiuq.inventory.bean.system.SystemConfig</class>
         <class>com.qiuq.inventory.bean.system.SystemOperateLog</class>
         <class>com.qiuq.inventory.bean.system.User</class>
         <class>com.qiuq.inventory.bean.system.UserGroup</class>

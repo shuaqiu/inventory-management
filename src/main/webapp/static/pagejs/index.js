@@ -1,8 +1,8 @@
 require(
         [
-                "./jquery",
-                "./widget/layout/TabContainer",
-                "./widget/layout/TabShowStrategy"
+                "../js/jquery",
+                "../js/widget/layout/TabContainer",
+                "../js/widget/layout/TabShowStrategy"
         ],
         function($, TabContainer, TabShowStrategy) {
 

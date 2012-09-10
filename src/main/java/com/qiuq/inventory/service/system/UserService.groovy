@@ -13,10 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
-import com.qiuq.inventory.bean.system.User
-import com.qiuq.inventory.repository.system.UserRepository
+import com.qiuq.inventory.repository.system.UserRepo
 
 /**
  * @author qiushaohua 2012-9-1
@@ -29,22 +27,11 @@ class UserService implements UserDetailsService{
     final Log log = LogFactory.getLog(UserService.class);
 
     @Autowired
-    UserRepository userRepository;
-
-    User login(String username, String password){
-        if(username == "admin"){
-            return new User(name:username,employerName:"管理员");
-        }
-        if(username == password){
-            return new User(name:username,employerName:username);
-        }
-        return null;
-    }
+    UserRepo userRepo;
 
     @Override
-    @Transactional(readOnly = true)
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        List<? extends UserDetails> users = userRepository.loadUsersByUsername(username);
+        List<? extends UserDetails> users = userRepo.findAllByUsername(username);
 
         if (users.size() == 0) {
             log.debug("Query returned no results for user '" + username + "'");
