@@ -73,6 +73,34 @@
         </p:layout>
       </p:layoutUnit>
       <p:layoutUnit position="center">
+        <table class="list-table">
+          <tr>
+            <td>
+              <h:outputText value="权限列表" />
+            </td>
+          </tr>
+          <tr class="list-row">
+            <td>
+              <p:tree value="#{permissionBean.permissions}" var="node" id="permissionTree" selectionMode="checkbox"
+                selection="#{permissionBean.selectedNodes}" styleClass="list">
+                <p:treeNode>
+                  <h:outputText value="#{node}" />
+                </p:treeNode>
+              </p:tree>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p:panelGrid columns="1">
+                <p:panelGrid columns="2">
+                  <a role="button" class="btn" onclick="pagejs.permission.createUser();">全选中</a>
+                  <a role="button" class="btn" onclick="pagejs.permission.createUser();">全不选</a>
+                  <a role="button" class="btn" onclick="pagejs.permission.createUser();">修改权限</a>
+                </p:panelGrid>
+              </p:panelGrid>
+            </td>
+          </tr>
+        </table>
       </p:layoutUnit>
     </p:layout>
   </h:form>

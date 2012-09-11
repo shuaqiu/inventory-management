@@ -15,6 +15,7 @@ import com.qiuq.inventory.bean.system.User
 import com.qiuq.inventory.repository.system.UserRepo
 
 /**
+ * User manager bean
  * @author qiushaohua 2012-9-11
  * @version 0.0.1
  *
@@ -33,7 +34,9 @@ class UserBean {
     UserRepo userRepo;
 
     String save(ActionEvent event){
-        log.info("want to save ${user.id}-->${user.name}");
+        log.info("want to save ${user.id}-->${user.username}");
+
+        // TODO need to salt the password
 
         // save or update to database
         User newUser = userRepo.save(user);

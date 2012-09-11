@@ -78,6 +78,7 @@ require([], function() {
          */
         hideUserGroupDialog : function() {
             userGroupDialog.hide();
+            return false;
         },
 
         /**
@@ -107,6 +108,7 @@ require([], function() {
          */
         hideUserDialog : function() {
             userDialog.hide();
+            return false;
         },
     };
 

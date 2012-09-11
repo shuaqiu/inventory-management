@@ -54,7 +54,7 @@
           <span class="icon-ok"></span>
           <h:outputText value="确定" />
         </p:commandLink>
-        <p:commandLink onclick="pagejs.permission.hideUserDialog();" styleClass="btn">
+        <p:commandLink onclick="return pagejs.permission.hideUserDialog();" styleClass="btn">
           <span class="icon-remove"></span>
           <h:outputText value="取消" />
         </p:commandLink>
@@ -63,12 +63,12 @@
   </h:form>
 
   <h:form>
-    <p:dialog widgetVar="userDeletionConfirm" modal="true" resizable="false" dynamic="true" header="删除权限组"
+    <p:dialog widgetVar="userDeletionConfirm" modal="true" resizable="false" dynamic="true" header="删除操作员"
       styleClass="simple-dialog">
       <div class="dialog-body form-horizontal">
         <div class="control-group">
           <span class="icon-question-sign"></span>
-          <h:outputText value="你确定要删除该权限组吗?" />
+          <h:outputText value="你确定要删除该操作员吗?" />
           <p:inputText type="hidden" widgetVar="toDeleteUserId" value="#{userBean.user.id}" />
         </div>
       </div>
