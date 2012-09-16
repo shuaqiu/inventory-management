@@ -1,0 +1,83 @@
+.border-radius-bottom (@radius: 6px) {
+    border-radius: 0 0 @radius @radius;
+    -moz-border-radius: 0 0 @radius @radius;
+    -webkit-border-radius: 0 0 @radius @radius;
+}
+
+.box-shadow (@type: inset , @x: 0 , @y: 1px , @blur: 0 , @color: #ffffff) {
+    box-shadow: @arguments;
+    -moz-box-shadow: @arguments;
+    -webkit-box-shadow: @arguments;
+}
+
+.ui-widget-content {
+    border: none;
+    .ui-button-text {
+        padding: 3px;
+    }
+
+    td {
+        border: none;
+        padding: 0;
+    }
+
+    .query-bar {
+        td {
+            padding: 0 4px;
+        }
+    }
+}
+
+.noscroll-layout-unit {
+    .ui-layout-unit-content {
+        overflow: hidden;
+    }
+}
+
+.list-table {
+    width: 100%;
+    height: 100%;
+    .list-row {
+        height: 100%;
+        .list {
+            width: 98%;
+            height: 100%;
+            .ui-state-active {
+                background-color: #08C;
+                color: #fff;
+                text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+}
+
+.simple-dialog {
+    .ui-dialog-content {
+        padding: 0 ! important;
+        .dialog-body {
+            padding: 20px;
+            table {
+                border-spacing: 4px;
+            }
+        }
+    }
+
+    .dialog-footer {
+        padding: 5px;
+        text-align: center;
+        background-color: #f5f5f5;
+        border-top: 1px solid #ddd;
+        .border-radius-bottom;
+        .box-shadow;
+        .btn {
+            margin: 0 4px;
+        }
+
+        .btn-primary:hover {
+            [class ^= "icon-"] , [class *= " icon-"] {
+                background-image: url("../../bootstrap/img/glyphicons-halflings-white.png");
+            }
+        }
+    }
+}
+

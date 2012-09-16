@@ -1,5 +1,5 @@
 @blue: #08C;
-.barnerUnit {
+.barner-unit {
     max-width: 100%;
     background-color: @blue;
     div {
@@ -7,7 +7,7 @@
     }
 }
 
-.menuUnit {
+.menu-unit {
     > div {
         overflow-x: hidden ! important;
     }
@@ -21,7 +21,7 @@
     }
 }
 
-.mainUnit {
+.main-unit {
     .ui-layout-resizer {
         display: none ! important;
     }
@@ -54,14 +54,18 @@
     }
 }
 
-.navUnit , .contentUnit {
+.nav-unit , .content-unit {
     border: none;
     padding: 0;
 }
 
-.contentUnit {
+.content-unit {
     > div {
         overflow: hidden ! important;
+    }
+
+    .tab-content {
+        height: 100%;
     }
 }
 

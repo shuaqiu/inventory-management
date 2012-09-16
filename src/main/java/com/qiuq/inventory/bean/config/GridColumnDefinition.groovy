@@ -62,7 +62,7 @@ class GridColumnDefinition extends CommonBean implements Serializable {
      * 序號, 在表格中 顯示的順序
      */
     @Column(name="SortID")
-    int sortOrder;
+    int sortIndex;
 
     /**
      * 寬度, 列寬, 有些字段的列寬設為-1, 應該是這一列會隱藏掉

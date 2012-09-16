@@ -7,10 +7,9 @@ import java.sql.Timestamp
 
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
 import javax.persistence.Table
+
+import com.qiuq.inventory.bean.CommonBean
 
 
 /**
@@ -20,13 +19,8 @@ import javax.persistence.Table
  */
 @Entity
 @Table(name="YGXX")
-class Employer implements Serializable{
+class Employer extends CommonBean implements Serializable{
     static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(unique=true, nullable=false)
-    int id;
 
     /**
      * 編號
@@ -56,7 +50,7 @@ class Employer implements Serializable{
      * 部門ID --> Department
      */
     @Column(name="BMID")
-    int departmentId;
+    Integer departmentId;
 
     /**
      * 部門名稱 --> Department
@@ -103,7 +97,10 @@ class Employer implements Serializable{
     /**
      * 地址
      */
-    @Column(name="Add", length=150)
+    //    @Column(name="Add", length=150)
+    //    String address;
+    // add 好像是jpa 或者是數據庫裏面的關鍵字, 所以改成另外一個字段
+    @Column(name="ZY", length=150)
     String address;
 
     /**

@@ -22,5 +22,7 @@
         <class>com.qiuq.inventory.bean.system.User</class>
         <class>com.qiuq.inventory.bean.system.UserGroup</class>
         <class>com.qiuq.inventory.bean.system.UserLoginLog</class>
+
+        <class>com.qiuq.inventory.bean.config.GridColumnDefinition</class>
     </persistence-unit>
 </persistence>
