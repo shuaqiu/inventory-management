@@ -9,16 +9,16 @@
 </h:head>
 
 <h:body>
-  <h:form id="employerForm">
+  <h:form id="employerForm" onsubmit="return false;">
     <p:layout fullPage="true">
       <p:layoutUnit position="north" size="50" styleClass="noscroll-layout-unit">
         <p:panelGrid columns="3" styleClass="query-bar">
           <h:outputLabel for="query" value="编号/名称/拼音码" />
-          <p:inputText id="query" value="#{employerBean.query}">
-            <p:ajax event="keyup" update="employers" />
+          <p:inputText id="query" widgetVar="query" value="#{employerBean.query}">
+            <p:ajax process=":employerForm:query,:employerForm:isHideDisabled,departments,:employerForm:employers" event="keyup" update="employers" />
           </p:inputText>
-          <p:selectBooleanCheckbox itemLabel="不显示已离职员工" value="#{employerBean.isHideDisabled}">
-            <p:ajax event="change" update="employers" />
+          <p:selectBooleanCheckbox id="isHideDisabled" itemLabel="不显示已离职员工" value="#{employerBean.isHideDisabled}">
+            <p:ajax process=":employerForm:query,:employerForm:isHideDisabled,departments,:employerForm:employers" event="change" update="employers" />
           </p:selectBooleanCheckbox>
         </p:panelGrid>
       </p:layoutUnit>
@@ -28,9 +28,9 @@
             <table class="list-table">
               <tr class="list-row">
                 <td>
-                  <p:tree value="#{departmentBean.root}" var="node" selectionMode="single"
+                  <p:tree id="departments" value="#{departmentBean.root}" var="node" selectionMode="single"
                     selection="#{employerBean.selectedTreeNode}" styleClass="list">
-                    <p:ajax event="select" update=":employerForm:employers" />
+                    <p:ajax process=":employerForm:query,:employerForm:isHideDisabled,departments,:employerForm:employers" event="select" update=":employerForm:employers" />
                     <p:treeNode collapsedIcon="ui-icon-folder-collapsed" expandedIcon="ui-icon-folder-open">
                       <h:outputText value="#{node.name}" />
                     </p:treeNode>
@@ -42,10 +42,10 @@
         </p:layout>
       </p:layoutUnit>
       <p:layoutUnit position="center">
-        <p:dataTable id="employers" var="employer" value="#{employerBean.employers}" selectionMode="single"
+        <p:dataTable id="employers" widgetVar="employers" var="employer" value="#{employerBean.employers}" selectionMode="single"
           scrollable="true" resizableColumns="true">
           <p:columns var="column" value="#{employerBean.columns}" width="#{column.width}"
-            rendered="#{column.isShow == 1}" sortBy="#{column.fieldName}">
+            rendered="#{column.isShow == 1}" sortBy="#{employer[column.fieldName]}" >
             <f:facet name="header">#{column.customTitle}</f:facet>
             <h:outputText value="#{employer[column.fieldName]}" />
           </p:columns>
