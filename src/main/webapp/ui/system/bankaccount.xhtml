@@ -14,18 +14,14 @@
       <p:layoutUnit position="north" size="50" styleClass="noscroll-layout-unit">
         <p:panelGrid columns="3" styleClass="query-bar">
           <h:outputLabel for="query" value="编号/名称/拼音码" />
-          <p:inputText id="query" value="#{employerBean.query}">
-            <p:ajax process=":employerForm:query,:employerForm:isHideDisabled,:employerForm:sort,departments"
-              event="keyup" update="employers" oncomplete="pagejs.employer.initDatatableSort();" />
+          <p:inputText id="query" widgetVar="query" value="#{employerBean.query}">
+            <p:ajax process=":employerForm:query,:employerForm:isHideDisabled,departments" event="keyup"
+              update="employers" />
           </p:inputText>
           <p:selectBooleanCheckbox id="isHideDisabled" itemLabel="不显示已离职员工" value="#{employerBean.isHideDisabled}">
-            <p:ajax process=":employerForm:query,:employerForm:isHideDisabled,:employerForm:sort,departments"
-              event="change" update="employers" oncomplete="pagejs.employer.initDatatableSort();" />
+            <p:ajax process=":employerForm:query,:employerForm:isHideDisabled,departments" event="change"
+              update="employers" />
           </p:selectBooleanCheckbox>
-          <p:inputText type="hidden" id="sort" widgetVar="sort" value="#{employerBean.sort}">
-            <p:ajax process=":employerForm:query,:employerForm:isHideDisabled,:employerForm:sort,departments"
-              event="change" update="employers" oncomplete="pagejs.employer.initDatatableSort();" />
-          </p:inputText>
         </p:panelGrid>
       </p:layoutUnit>
       <p:layoutUnit position="west" size="330" resizable="true">
@@ -36,8 +32,8 @@
                 <td>
                   <p:tree id="departments" value="#{departmentBean.root}" var="node" selectionMode="single"
                     selection="#{employerBean.selectedTreeNode}" styleClass="list">
-                    <p:ajax process=":employerForm:query,:employerForm:isHideDisabled,:employerForm:sort,departments"
-                      event="select" update=":employerForm:employers" oncomplete="pagejs.employer.initDatatableSort();" />
+                    <p:ajax process=":employerForm:query,:employerForm:isHideDisabled,departments" event="select"
+                      update=":employerForm:employers" />
                     <p:treeNode collapsedIcon="ui-icon-folder-collapsed" expandedIcon="ui-icon-folder-open">
                       <h:outputText value="#{node.name}" />
                     </p:treeNode>
@@ -52,11 +48,9 @@
         <p:dataTable id="employers" widgetVar="employers" var="employer" value="#{employerBean.employers}"
           selectionMode="single" scrollable="true" resizableColumns="true">
           <p:columns var="column" value="#{employerBean.columns}" width="#{column.width}"
-            rendered="#{column.isShow == 1}">
+            rendered="#{column.isShow == 1}" sortBy="#{employer[column.fieldName]}">
             <f:facet name="header">
-              <span class="ui-sortable-column-icon ui-icon ui-icon-carat-2-n-s"></span>
-              <span data-field="#{column.fieldName}">#{column.customTitle}</span>
-            </f:facet>
+              <span class="ui-sortable-column-icon ui-icon ui-icon-carat-2-n-s"></span>#{column.customTitle}</f:facet>
             <h:outputText value="#{employer[column.fieldName]}"
               rendered="#{column.fieldName != 'salesman' and column.fieldName != 'disabled' and column.fieldName != 'birthday' and column.fieldName != 'employedDate'}" />
             <h:outputText value="是"

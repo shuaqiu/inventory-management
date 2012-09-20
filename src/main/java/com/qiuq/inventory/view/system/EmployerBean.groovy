@@ -5,11 +5,9 @@ package com.qiuq.inventory.view.system
 
 import java.lang.reflect.Field
 
-import javax.faces.model.ListDataModel
 import javax.persistence.Column
 import javax.persistence.Transient
 
-import org.primefaces.model.SelectableDataModel
 import org.primefaces.model.TreeNode
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Scope
@@ -26,6 +24,7 @@ import com.qiuq.inventory.bean.system.Employer
 import com.qiuq.inventory.repository.config.GridColumnDefinitionRepo
 import com.qiuq.inventory.repository.system.EmployerRepo
 import com.qiuq.inventory.service.system.DepartmentService
+import com.qiuq.inventory.view.CommonBeanDataModel
 
 /**
  * @author qiushaohua 2012-9-13
@@ -43,9 +42,11 @@ class EmployerBean {
 
     boolean isHideDisabled;
 
-    EmployerDataModel employers;
+    CommonBeanDataModel employers;
 
     List<GridColumnDefinition> columns;
+
+    String sort;
 
     @Autowired
     EmployerRepo employerRepo;
@@ -56,7 +57,7 @@ class EmployerBean {
     @Autowired
     GridColumnDefinitionRepo gridColumnDefinitionRepo;
 
-    EmployerDataModel getEmployers(){
+    CommonBeanDataModel getEmployers(){
         if(employers == null){
             employers = initEmployers();
         }
@@ -69,7 +70,7 @@ class EmployerBean {
      * @param employers
      * @author qiushaohua 2012-9-17
      */
-    private void setEmployers(EmployerDataModel employers){
+    private void setEmployers(CommonBeanDataModel employers){
     }
 
     /**
@@ -77,7 +78,7 @@ class EmployerBean {
      * @return
      * @author qiushaohua 2012-9-17
      */
-    EmployerDataModel initEmployers(){
+    CommonBeanDataModel initEmployers(){
         if(query == null || query.trim() == ""){
             query = "";
         }
@@ -92,7 +93,26 @@ class EmployerBean {
         MultiValueMap<Integer, Integer> sub = departmentService.getSublist();
         List<Integer> departmentIds = sub.get(selectedDepartmentId);
 
-        return new EmployerDataModel(employerRepo.findByDepartmentAndQuery(departmentIds, "%${query}%", new Sort("id")));
+        return new CommonBeanDataModel(employerRepo.findByDepartmentAndQuery(departmentIds, "%${query}%", parseSort()));
+    }
+
+    private Sort parseSort(){
+        if(sort == null){
+            return new Sort("id");
+        }
+
+        String[] arr = sort.split(",");
+        if(arr.length == 1){
+            return new Sort(arr[0]);
+        }
+        if(arr.length == 2){
+            if(arr[1] == "asc"){
+                return new Sort(Sort.Direction.ASC, arr[0]);
+            }else{
+                return new Sort(Sort.Direction.DESC, arr[0]);
+            }
+        }
+        return new Sort("id");
     }
 
     /**
@@ -160,24 +180,5 @@ class EmployerBean {
         ReflectionUtils.doWithFields(entityClass,fieldCallback, fieldFilter);
 
         return mapping;
-    }
-
-    private class EmployerDataModel extends ListDataModel<Employer> implements SelectableDataModel<Employer>, Serializable{
-
-        public EmployerDataModel(List<Employer> data){
-            super(data);
-        }
-
-        @Override
-        public Object getRowKey(Employer object) {
-            return object.id;
-        }
-
-        @Override
-        public Employer getRowData(String rowKey) {
-            return getWrappedData().find {
-                return it.id == Integer.parseInt(rowKey);
-            }
-        }
     }
 }
