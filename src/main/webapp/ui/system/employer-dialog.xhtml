@@ -1,0 +1,157 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+  <h:form>
+    <p:dialog widgetVar="editDialog" modal="true" resizable="false" dynamic="true" header="员工信息"
+      styleClass="simple-dialog">
+      <div class="dialog-body form-horizontal">
+        <div class="control-group">
+          <h:outputLabel value="工号(*)" for="serialNumber" styleClass="control-label" />
+          <div class="controls">
+            <p:inputText type="hidden" widgetVar="id" value="#{employerBean.employer.id}" />
+            <p:inputText id="serialNumber" widgetVar="serialNumber" value="#{employerBean.employer.serialNumber}"
+              required="true" requiredMessage="请输入工号" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="姓名(*)" for="name" styleClass="control-label" />
+          <div class="controls">
+            <p:inputText id="name" widgetVar="name" value="#{employerBean.employer.name}" required="true"
+              requiredMessage="请输入姓名" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="性別" for="sex" styleClass="control-label" />
+          <div class="controls">
+            <p:selectOneMenu id="sex" widgetVar="sex" value="#{employerBean.employer.sex}">
+              <f:selectItem itemLabel="男" itemValue="男" />
+              <f:selectItem itemLabel="女" itemValue="女" />
+            </p:selectOneMenu>
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="部门(*)" for="departmentName" styleClass="control-label" />
+          <div class="controls">
+            <p:inputText type="hidden" widgetVar="departmentId" value="#{employerBean.employer.departmentId}" />
+            <p:inputText id="departmentName" widgetVar="departmentName" value="#{employerBean.employer.departmentName}"
+              required="true" requiredMessage="请选择部门" onclick="" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="拼音码" for="firstPinyin" styleClass="control-label" />
+          <div class="controls">
+            <p:inputText id="firstPinyin" widgetVar="firstPinyin" value="#{employerBean.employer.firstPinyin}" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="出生日期" for="birthday" styleClass="control-label" />
+          <div class="controls">
+            <p:calendar id="birthday" widgetVar="birthday" value="#{employerBean.employer.birthday}" locale="zh"
+              selectOtherMonths="true" pattern="yyyy-MM-dd" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="入职日期" for="employedDate" styleClass="control-label" />
+          <div class="controls">
+            <p:calendar id="employedDate" widgetVar="employedDate" value="#{employerBean.employer.employedDate}"
+              locale="zh" showButtonPanel="true" selectOtherMonths="true" pattern="yyyy-MM-dd" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="身份证号" for="cardNo" styleClass="control-label" />
+          <div class="controls">
+            <p:inputText id="cardNo" widgetVar="cardNo" value="#{employerBean.employer.cardNo}" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="手机号码" for="mobile" styleClass="control-label" />
+          <div class="controls">
+            <p:inputText id="mobile" widgetVar="mobile" value="#{employerBean.employer.mobile}" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="电话" for="tel" styleClass="control-label" />
+          <div class="controls">
+            <p:inputText id="tel" widgetVar="tel" value="#{employerBean.employer.tel}" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="地址" for="address" styleClass="control-label" />
+          <div class="controls">
+            <p:inputText id="address" widgetVar="address" value="#{employerBean.employer.address}" />
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="学历" for="edu" styleClass="control-label" />
+          <div class="controls">
+            <p:selectOneMenu id="edu" widgetVar="edu" value="#{employerBean.employer.edu}">
+              <f:selectItem itemLabel="添加学历..." itemValue="" />
+              <f:selectItems value="#{baseInfoDictionaryBean.educations}" var="dic" itemLabel="#{dic.name}"
+                itemValue="#{dic.name}" />
+            </p:selectOneMenu>
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="岗位" for="duty" styleClass="control-label" />
+          <div class="controls">
+            <p:selectOneMenu id="duty" widgetVar="duty" value="#{employerBean.employer.duty}">
+              <f:selectItem itemLabel="添加岗位..." itemValue="" />
+              <f:selectItems value="#{baseInfoDictionaryBean.educations}" var="dic" itemLabel="#{dic.name}"
+                itemValue="#{dic.name}" />
+            </p:selectOneMenu>
+          </div>
+        </div>
+        <div class="control-group">
+          <h:outputLabel value="职位" for="position" styleClass="control-label" />
+          <div class="controls">
+            <p:selectOneMenu id="position" widgetVar="position" value="#{employerBean.employer.position}">
+              <f:selectItem itemLabel="添加职位..." itemValue="" />
+              <f:selectItems value="#{baseInfoDictionaryBean.positions}" var="dic" itemLabel="#{dic.name}"
+                itemValue="#{dic.name}" />
+            </p:selectOneMenu>
+          </div>
+        </div>
+        <div>
+          <p:messages autoUpdate="true" />
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <p:commandLink actionListener="#{userBean.save}" update=":employerForm:employers"
+          process="@form,:employerForm:query,:employerForm:isHideDisabled,:employerForm:sort,:employerForm:departments"
+          oncomplete="pagejs.employer.hideDialogWhenSaved(xhr, status, args);" styleClass="btn btn-primary">
+          <span class="icon-ok"></span>
+          <h:outputText value="确定" />
+        </p:commandLink>
+        <p:commandLink onclick="return pagejs.employer.hideDialog();" styleClass="btn">
+          <span class="icon-remove"></span>
+          <h:outputText value="取消" />
+        </p:commandLink>
+      </div>
+    </p:dialog>
+  </h:form>
+
+  <h:form>
+    <p:dialog widgetVar="userDeletionConfirm" modal="true" resizable="false" dynamic="true" header="删除操作员"
+      styleClass="simple-dialog">
+      <div class="dialog-body form-horizontal">
+        <div class="control-group">
+          <span class="icon-question-sign"></span>
+          <h:outputText value="你确定要删除该操作员吗?" />
+          <p:inputText type="hidden" widgetVar="toDeleteUserId" value="#{userBean.user.id}" />
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <p:commandLink actionListener="#{userBean.delete}" update=":employerForm:employers"
+          oncomplete="userDeletionConfirm.hide();" styleClass="btn btn-primary">
+          <span class="icon-ok"></span>
+          <h:outputText value="确定" />
+        </p:commandLink>
+        <p:commandLink onclick="userDeletionConfirm.hide();" styleClass="btn">
+          <span class="icon-remove"></span>
+          <h:outputText value="取消" />
+        </p:commandLink>
+      </div>
+    </p:dialog>
+  </h:form>
+
+</ui:composition>

@@ -2,10 +2,9 @@ package com.qiuq.inventory.bean.base
 
 import javax.persistence.Column
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
 import javax.persistence.Table
+
+import com.qiuq.inventory.bean.CommonBean
 
 /**
  * 基礎資料字典
@@ -14,13 +13,8 @@ import javax.persistence.Table
  */
 @Entity
 @Table(name="JCZL")
-class BaseInfoDictionary implements Serializable {
+class BaseInfoDictionary extends CommonBean implements Serializable {
     static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(unique=true, nullable=false)
-    int id;
 
     /**
      * 編號
